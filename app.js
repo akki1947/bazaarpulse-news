@@ -89,3 +89,40 @@ console.log("Movers error",e)
 }
 
 }
+
+async function loadLosers(){
+
+try{
+
+const url="https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_losers&count=5"
+
+const res=await fetch(url)
+
+const data=await res.json()
+
+const rows=data.finance.result[0].quotes
+
+const losers=document.getElementById("losers")
+
+losers.innerHTML=""
+
+rows.forEach(s=>{
+
+const li=document.createElement("li")
+
+li.innerText=s.symbol+"  "+s.regularMarketChangePercent.toFixed(2)+"%"
+
+losers.appendChild(li)
+
+})
+
+}catch(e){
+
+console.log("Losers error",e)
+
+}
+
+}
+
+loadMovers()
+loadLosers()
