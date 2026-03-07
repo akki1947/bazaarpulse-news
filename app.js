@@ -2,7 +2,7 @@ async function loadTicker(){
 
 try{
 
-const url="https://query1.finance.yahoo.com/v7/finance/quote?symbols=%5ENSEI,%5ENSEBANK"
+const url="https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v7/finance/quote?symbols=%5ENSEI,%5ENSEBANK"
 
 const res=await fetch(url)
 
@@ -27,7 +27,11 @@ console.log("Ticker error",e)
 
 }
 
+
+
 async function loadNews(){
+
+try{
 
 const url="https://api.rss2json.com/v1/api.json?rss_url=https://economictimes.indiatimes.com/rssfeedsdefault.cms"
 
@@ -49,18 +53,21 @@ news.appendChild(li)
 
 })
 
+}catch(e){
+
+console.log("News error",e)
+
 }
 
-loadTicker()
-loadNews()
+}
 
-setInterval(loadTicker,60000)
+
 
 async function loadMovers(){
 
 try{
 
-const url="https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_gainers&count=5"
+const url="https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_gainers&count=5"
 
 const res=await fetch(url)
 
@@ -90,11 +97,13 @@ console.log("Movers error",e)
 
 }
 
+
+
 async function loadLosers(){
 
 try{
 
-const url="https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_losers&count=5"
+const url="https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_losers&count=5"
 
 const res=await fetch(url)
 
@@ -124,5 +133,11 @@ console.log("Losers error",e)
 
 }
 
+
+
+loadTicker()
+loadNews()
 loadMovers()
 loadLosers()
+
+setInterval(loadTicker,60000)
