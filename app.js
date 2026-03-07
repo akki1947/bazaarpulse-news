@@ -55,3 +55,37 @@ loadTicker()
 loadNews()
 
 setInterval(loadTicker,60000)
+
+async function loadMovers(){
+
+try{
+
+const url="https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved?scrIds=day_gainers&count=5"
+
+const res=await fetch(url)
+
+const data=await res.json()
+
+const rows=data.finance.result[0].quotes
+
+const gainers=document.getElementById("gainers")
+
+gainers.innerHTML=""
+
+rows.forEach(s=>{
+
+const li=document.createElement("li")
+
+li.innerText=s.symbol+"  "+s.regularMarketChangePercent.toFixed(2)+"%"
+
+gainers.appendChild(li)
+
+})
+
+}catch(e){
+
+console.log("Movers error",e)
+
+}
+
+}
